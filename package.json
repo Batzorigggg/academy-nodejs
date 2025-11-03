@@ -1,0 +1,21 @@
+{
+  "name": "a",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "type":"module",
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Batzorigggg/academy-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Batzorigggg/academy-nodejs/issues"
+  },
+  "homepage": "https://github.com/Batzorigggg/academy-nodejs#readme"
+}
