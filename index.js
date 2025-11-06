@@ -13,7 +13,11 @@ function readUsers() {
 
   return data.split("\n").map((line) => {
     const [username, pin, balance] = line.split(",");
-    return { username: username.trim(), pin: pin.trim(), balance: parseInt(balance.trim()) };
+    return {
+      username: username.trim(),
+      pin: pin.trim(),
+      balance: parseInt(balance.trim()),
+    };
   });
 }
 
@@ -23,7 +27,7 @@ function writeUsers(users) {
 }
 
 function logTransaction(username, type, amount) {
-  const log = `${new Date().toLocaleString()} - ${username} - ${type} - ${amount}\n`;
+  const log = `${new Date().toLocaleString()}, ${username}, ${type}, ${amount}\n`;
   fs.appendFileSync("transactions.txt", log);
 }
 
@@ -68,9 +72,6 @@ function login() {
   });
 }
 
-// =======================
-// showMenu(): хэрэглэгчийн цэс
-// =======================
 function showMenu(user) {
   console.log(`
 ==== ATM MENU ====
@@ -95,7 +96,9 @@ function showMenu(user) {
           current.balance += amount;
           writeUsers(users);
           logTransaction(current.username, "deposit", amount);
-          console.log(`✅ ${amount}₮ нэмэгдлээ! Шинэ үлдэгдэл: ${current.balance}₮`);
+          console.log(
+            `✅ ${amount}₮ нэмэгдлээ! Шинэ үлдэгдэл: ${current.balance}₮`
+          );
           return showMenu(current);
         });
         break;
