@@ -1,104 +1,52 @@
+import express from "express";
 import fs from "node:fs/promises";
-import inquirer from "inquirer";
-import { bankAnswer } from "./bank.js";
 
-const getUsers = async () => {
-  const userRawData = await fs.readFile("users.json", "utf-8");
+const app = express();
 
-  const users = JSON.parse(userRawData);
+app.use(express.json());
 
-  return users;
-};
+app.get("/get-user/:id", async (req, res) => {
+  const { id } = req.params;
+  const users = await fs.readFile("users.json").then((value) => {
+    return JSON.parse(value);
+  });
 
-const login = async () => {
-  const { username, password } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "username",
-      message: "Enter your username"
-    },
-    {
-      type: "password",
-      name: "password",
-      message: "Enter your password"
-    }
-  ]);
-
-  const users = await getUsers();
-
-  const user = users.find(value => {
-    return value.username === username && value.password === password;
+  const user = users.find((value) => {
+    return value.id == id;
   });
 
   if (!user) {
-    console.log("username eswel password buruu bn!");
-    await auth();
-  } else {
-    return bankAnswer(users, user);
-  }
-};
-
-const signup = async () => {
-  const { username, password, passwordVerify } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "username",
-      message: "Enter your username"
-    },
-    {
-      type: "password",
-      name: "password",
-      message: "Enter your password"
-    },
-    {
-      type: "password",
-      name: "passwordVerify",
-      message: "Enter your password again"
-    }
-  ]);
-
-  if (password !== passwordVerify) {
-    console.log("Password validation failed!");
-    return signup();
+    return res.status(404).send("User not found");
   }
 
-  const users = await getUsers();
+  res.json(user);
+});
 
-  const user = users.find(value => {
-    return value.username === username;
+app.get("/get-users", async (req, res) => {
+  const { firstName, age } = req.query;
+
+  const users = await fs.readFile("users.json").then((value) => {
+    return JSON.parse(value);
   });
 
-  if (user) {
-    console.log("Username not valid");
-    return signup();
-  }
+  const filteredUsers = users.filter((value) => {
+    return value.firstName === firstName && value.age == age;
+  }); //1
 
-  users.push({ username, password, balance: 0 });
+  res.json(users);
+});
 
-  const userData = JSON.stringify(users);
+app.post("/create-user", async (req, res) => {
+  console.log(req.body);
+  res.send("Success"); //2
+});
 
-  await fs.writeFile("users.json", userData, "utf-8");
+app.put("/update-user/:id", async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  res.send("Success"); //3
+});
 
-  console.log("Amjilttai burtguulle!");
-
-  return login();
-};
-
-const auth = async () => {
-  const { authOption } = await inquirer.prompt([
-    {
-      type: "select",
-      name: "authOption",
-      message: "Login Or Signup",
-      choices: ["Login", "Signup"]
-    }
-  ]);
-
-  if (authOption === "Login") {
-    return login();
-  } else {
-    return signup();
-  }
-};
-
-auth();
+app.listen(3000, () => {
+  console.log("3000");
+});
