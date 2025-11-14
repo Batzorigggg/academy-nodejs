@@ -1,37 +1,5 @@
 [
-  {
-    "firstName": "bat",
-    "age": 40,
-    "id": 1
-  },
-  {
-    "firstName": "bat",
-    "age": 20,
-    "id": 2
-  },
-  {
-    "firstName": "bat",
-    "age": 18,
-    "id": 3
-  },
-  {
-    "firstName": "bat",
-    "age": 18,
-    "id": 4
-  },
-  {
-    "firstName": "dorj",
-    "age": 18,
-    "id": 5
-  },
-  {
-    "firstName": "dorj",
-    "age": 18,
-    "id": 6
-  },
-  {
-    "firstName": "zo",
-    "age": 18,
-    "id": 7
-  }
+  { "id": 1, "username": "enkhtuvshin", "password": "123", "balance": 45000 },
+  { "id": 2, "username": "zo", "password": "123", "balance": 195000 },
+  { "id": 3, "username": "a", "balance": 50000 }
 ]
