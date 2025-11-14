@@ -15,10 +15,6 @@ app.get("/get-user/:id", async (req, res) => {
     return value.id == id;
   });
 
-  if (!user) {
-    return res.status(404).send("User not found");
-  }
-
   res.json(user);
 });
 
@@ -31,21 +27,47 @@ app.get("/get-users", async (req, res) => {
 
   const filteredUsers = users.filter((value) => {
     return value.firstName === firstName && value.age == age;
-  }); //1
+  });
 
-  res.json(users);
+  res.json(filteredUsers);
 });
+
 
 app.post("/create-user", async (req, res) => {
-  console.log(req.body);
-  res.send("Success"); //2
+  const users = JSON.parse(await fs.readFile("users.json"));
+
+  const newId = users.length + 1;
+
+  const newUser = {
+    id: newId,
+    ...req.body,
+    // firstName: req.body.firstName,
+    // age: req.body.age
+  }
+
+
+  users.push(newUser);
+
+  await fs.writeFile("users.json", JSON.stringify(users));
+
+  res.json(newUser);
 });
 
+
 app.put("/update-user/:id", async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
-  res.send("Success"); //3
+  const { id } = req.params;
+
+  const users = JSON.parse(await fs.readFile("users.json", "utf-8"));
+
+  const user = users.find(u => u.id == id);
+
+  Object.assign(user, req.body);
+
+  await fs.writeFile("users.json", JSON.stringify(users));
+
+  res.json(user);
 });
+
 
 app.listen(3000, () => {
   console.log("3000");
