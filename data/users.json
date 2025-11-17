@@ -1,0 +1,9 @@
+[
+  { "firstName": "bat", "age": 18, "id": 1, "balance": 10000 },
+  { "firstName": "bat", "age": 20, "id": 2, "balance": 20000 },
+  { "firstName": "bat", "age": 18, "id": 3, "balance": 30000 },
+  { "firstName": "bat", "age": 18, "id": 4, "balance": 40000 },
+  { "firstName": "dorj", "age": 18, "id": 5, "balance": 50000 },
+  { "firstName": "dorj", "age": 18, "id": 6, "balance": 60000 },
+  { "firstName": "dorj", "age": 18, "id": 7, "balance": 70000 }
+]
