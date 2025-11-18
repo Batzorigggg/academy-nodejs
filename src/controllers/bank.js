@@ -1,22 +1,15 @@
 import { BankService } from "../services/bank.js";
 
+const bankService = new BankService();
+
 export const checkBalanceController = async (req, res) => {
-  const { id } = req.params;
-  const users = await fs.readFile("../../data/users.json").then((value) => {
-    return JSON.parse(value);
-  });
-
-  const user = users.find((value) => {
-    return value.id == id;
-  });
-
-  res.json(user);
-
   try {
-    const aa = new BankService();
+    const { id } = req.params;
 
-    res.send(aa.checkBalance());
+    const balance = await bankService.checkBalance(id);
+
+    res.json({ balance });
   } catch (e) {
-    res.status(500).send(e.message);
+    res.json(e);
   }
 };

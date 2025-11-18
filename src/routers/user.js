@@ -5,10 +5,11 @@ export const userRouter = new express.Router();
 
 userRouter.post("/login", login);
 
-userRouter.post("register", (req, res) => {
+userRouter.post("/register", (req, res) => {
   res.send("Success!");
 });
 
 userRouter.post("/logout", (req, res) => {
   res.send("Success!");
 });
+

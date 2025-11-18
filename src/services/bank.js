@@ -1,21 +1,19 @@
+import fs from "fs/promises";
+
 export class BankService {
-  checkBalance() {
-    const users = fs.readFile("../../data/users.json").then((value) => {
-      const { id } = req.params;
-      const users = fs.readFile("users.json").then((value) => {
-        return JSON.parse(value);
-      });
+  async getUsers() {
+    const data = await fs.readFile("data/users.json", "utf-8");
+    return JSON.parse(data);
+  }
 
-      const user = users.find((value) => {
-        return value.id == id;
-      });
+  async saveUsers(users) {
+    await fs.writeFile("data/users.json", JSON.stringify(users));
+  }
 
-      res.json(user);
-      return JSON.parse(value);
-    });
+  async checkBalance(id) {
+    const users = await this.getUsers();
+    const user = users.find((u) => u.id == id);
 
-    const user = users.find((value) => {
-      return value.id == id;
-    });
+    return user.balance;
   }
 }
