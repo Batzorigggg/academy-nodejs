@@ -3,7 +3,8 @@
     "firstName": "bat",
     "age": 18,
     "id": 1,
-    "balance": 10000
+    "balance": 10000,
+    "password": 123
   },
   {
     "firstName": "bat",
