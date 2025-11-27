@@ -1,0 +1,45 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>bank</h1>
+
+    <button id="logout" onclick="logout()">logout</button>
+    <button id="deposit" onclick="deposit()">deposit</button>
+    <script>
+      const logout = async () => {
+        const response = await fetch("http://localhost:3000/user/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.ok) {
+          window.location.href = "/login.html";
+        } else {
+          window.alert("Amjiltgui");
+        }
+      };
+
+      const deposit = async () => {
+        const response = await fetch("http://localhost:3000/bank/deposit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: 3000,
+          }),
+        });
+
+        if (response.ok) {
+          window.location.href = "/login.html";
+        } else {
+          window.alert("Amjiltgui");
+        }
+      };
+    </script>
+  </body>
+</html> -->

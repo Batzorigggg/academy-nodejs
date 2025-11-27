@@ -2,8 +2,7 @@ import { BankService } from "../services/bank.js";
 
 const bankService = new BankService();
 
-export const checkBalanceController = async (req, res) => {
-};
+export const checkBalanceController = async (req, res) => {};
 
 export const getHistoryController = async (req, res) => {
   try {

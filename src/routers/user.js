@@ -1,12 +1,7 @@
-import express from "express";
-import { login, register } from "../controllers/user.js";
+import { Router } from "express";
+import { login, logout } from "../controllers/user.js";
 
-export const userRouter = new express.Router();
+export const userRouters = new Router();
 
-userRouter.post("/login", login);
-
-userRouter.post("/register", register);
-
-userRouter.post("/logout", (req, res) => {
-  res.send("Success!");
-});
+userRouters.post("/login", login);
+userRouters.post("/logout", logout);

@@ -1,3 +1,4 @@
+import e from "express";
 import fs from "fs/promises";
 const DATA_FILE = "data/users.json";
 
