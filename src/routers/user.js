@@ -1,12 +1,21 @@
-import express from "express";
-import { login, register } from "../controllers/user.js";
+import { Router } from "express";
+import {
+  createUser,
+  updateUser,
+  getUsers,
+  deleteUser,
+  getUserAccounts,
+} from "../controllers/user.js";
 
-export const userRouter = new express.Router();
+export const userRouters = new Router();
 
-userRouter.post("/login", login);
+//user tei holbootoi post route uud
 
-userRouter.post("/register", register);
+userRouters.post("/create", createUser);
+userRouters.post("/update", updateUser);
+userRouters.post("/delete", deleteUser);
 
-userRouter.post("/logout", (req, res) => {
-  res.send("Success!");
-});
+//user tei holbootoi get route uud
+
+userRouters.get("/get-users", getUsers);
+userRouters.get("/get-user-accounts", getUserAccounts);

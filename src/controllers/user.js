@@ -1,25 +1,61 @@
-import { BankService } from "../services/bank.js";
+import {
+  createUserService,
+  updateUserService,
+  getUsersService,
+  getUserByIdService,
+  deleteUserService,
+  getUserAccountsService,
+  getUserTransactionsService,
+} from "../services/user.js";
 
-const bankService = new BankService();
+export const createUser = async (req, res) => {
+  const { username, email, password, firstname, lastname } = req.body;
 
-export const login = async (req, res) => {
-  try {
-    const { name, pass } = req.body;
+  const user = await createUserService(
+    username,
+    email,
+    password,
+    firstname,
+    lastname
+  );
 
-    const users = await bankService.getUsers();
-    console.log("Users read from file:", users);
-    const foundUser = users.find(user => user.firstName == name && user.password == pass);
-
-    if (foundUser) {
-      res.json({ message: "Success", userId: foundUser.id });
-    } else {
-      res.status(401).json({ error: "Username or Password incorrect" });
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
+  res.json(user);
 };
 
-export const register = (req, res) => {
-  res.send("Register not implemented yet");
+export const updateUser = async (req, res) => {
+  const { id, username, email, password, firstname, lastname } = req.body;
+
+  const user = await updateUserService(
+    id,
+    username,
+    email,
+    password,
+    firstname,
+    lastname
+  );
+
+  res.json(user);
+};
+
+export const getUsers = async (req, res) => {
+  const users = await getUsersService();
+  res.json(users);
+};
+
+export const getUserById = async (req, res) => {
+  const { id } = req.query;
+  const user = await getUserByIdService(id);
+  res.json(user);
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.query;
+  const user = await deleteUserService(id);
+  res.json(user);
+};
+
+export const getUserAccounts = async (req, res) => {
+  const { id } = req.query;
+  const accounts = await getUserAccountsService(id);
+  res.json(accounts);
 };

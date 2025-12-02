@@ -1,16 +1,17 @@
 import express from "express";
-import { bankRouter } from "./routers/bank.js";
-import { userRouter } from "./routers/user.js";
-import cors from "cors";
+import { userRouters } from "./routers/user.js";
+import { bankRouters } from "./routers/bank.js";
+import { connectDb } from "./db.js";
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
-app.use("/bank", bankRouter);
-app.use("/user", userRouter);
+app.use("/user", userRouters);
+app.use("/bank", bankRouters);
+
+await connectDb();
 
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log("express app running at 3000");
 });

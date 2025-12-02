@@ -1,88 +1,89 @@
-import fs from "fs/promises";
-const DATA_FILE = "data/users.json";
+// import fs from "fs/promises";
+// const DATA_FILE = "data/users.json";
 
-export class BankService {
-  async getUsers() {
-    try {
-      const data = await fs.readFile(DATA_FILE, "utf-8");
-      return JSON.parse(data);
-    } catch (error) {
-      return [];
-    }
-  }
+// export class BankService {
+//   async getUsers() {
+//     try {
+//       const data = await fs.readFile(DATA_FILE, "utf-8");
+//       return JSON.parse(data);
+//     } catch (error) {
+//       return [];
+//     }
+//   }
 
-  async saveUsers(users) {
-    await fs.writeFile(DATA_FILE, JSON.stringify(users, null, 2));
-  }
+//   async saveUsers(users) {
+//     await fs.writeFile(DATA_FILE, JSON.stringify(users, null, 2));
+//   }
 
-  async checkBalance(id) {
-    const users = await this.getUsers();
-    const user = users.find((u) => u.id == id);
+//   async checkBalance(id) {
+//     const users = await this.getUsers();
+//     const user = users.find((u) => u.id == id);
 
-    if (!user) throw new Error("User not found");
+//     if (!user) throw new Error("User not found");
 
-    return user.balance || 0;
-  }
+//     return user.balance || 0;
 
-  async getHistory(id) {
-    const users = await this.getUsers();
-    const user = users.find((u) => u.id == id);
+//   }
 
-    if (!user) throw new Error("User not found");
+//   async getHistory(id) {
+//     const users = await this.getUsers();
+//     const user = users.find((u) => u.id == id);
 
-    return user.history || [];
-  }
+//     if (!user) throw new Error("User not found");
 
-  async deposit(id, amount) {
-    const users = await this.getUsers();
-    const index = users.findIndex((u) => u.id == id);
+//     return user.history || [];
+//   }
 
-    if (index === -1) throw new Error("User not found");
+//   async deposit(id, amount) {
+//     const users = await this.getUsers();
+//     const index = users.findIndex((u) => u.id == id);
 
-    users[index].balance = (users[index].balance || 0) + Number(amount);
+//     if (index === -1) throw new Error("User not found");
 
-    const transaction = {
-      type: "Deposit",
-      amount: Number(amount),
-      date: new Date().toLocaleString(),
-    };
+//     users[index].balance = (users[index].balance || 0) + Number(amount);
 
-    if (!users[index].history) {
-      users[index].history = [];
-    }
-    users[index].history.push(transaction);
+//     const transaction = {
+//       type: "Deposit",
+//       amount: Number(amount),
+//       date: new Date().toLocaleString(),
+//     };
 
-    await this.saveUsers(users);
+//     if (!users[index].history) {
+//       users[index].history = [];
+//     }
+//     users[index].history.push(transaction);
 
-    return users[index].balance;
-  }
+//     await this.saveUsers(users);
 
-  async withdraw(id, amount) {
-    const users = await this.getUsers();
-    const index = users.findIndex((u) => u.id == id);
+//     return users[index].balance;
+//   }
 
-    if (index === -1) throw new Error("User not found");
+//   async withdraw(id, amount) {
+//     const users = await this.getUsers();
+//     const index = users.findIndex((u) => u.id == id);
 
-    const currentBalance = users[index].balance || 0;
+//     if (index === -1) throw new Error("User not found");
 
-    if (currentBalance < amount) {
-      throw new Error("Insufficient funds (Үлдэгдэл хүрэлцэхгүй байна)");
-    }
+//     const currentBalance = users[index].balance || 0;
 
-    users[index].balance = currentBalance - Number(amount);
-    const transaction = {
-      type: "Withdraw",
-      amount: Number(amount),
-      date: new Date().toLocaleString(),
-    };
+//     if (currentBalance < amount) {
+//       throw new Error("Insufficient funds (Үлдэгдэл хүрэлцэхгүй байна)");
+//     }
 
-    if (!users[index].history) {
-      users[index].history = [];
-    }
-    users[index].history.push(transaction);
+//     users[index].balance = currentBalance - Number(amount);
+//     const transaction = {
+//       type: "Withdraw",
+//       amount: Number(amount),
+//       date: new Date().toLocaleString(),
+//     };
 
-    await this.saveUsers(users);
+//     if (!users[index].history) {
+//       users[index].history = [];
+//     }
+//     users[index].history.push(transaction);
 
-    return users[index].balance;
-  }
-}
+//     await this.saveUsers(users);
+
+//     return users[index].balance;
+//   }
+// }
